@@ -5,15 +5,25 @@ import (
 	"strings"
 )
 
-const englishHelloPrefix = "Hello, "
+const (
+	spanish            = "spanish"
+	englishHelloPrefix = "Hello, "
+	spanishHelloPrefix = "Hola, "
+)
 
 func main() {
-	fmt.Println(Hello("word"))
+	fmt.Println(Hello("word", ""))
 }
 
-func Hello(name string) string {
+func Hello(name, lan string) string {
 	if len(strings.TrimSpace(name)) == 0 {
 		return "Hello, World"
 	}
-	return fmt.Sprint(englishHelloPrefix + name)
+
+	switch strings.ToLower(lan) {
+	case spanish:
+		return fmt.Sprint(spanishHelloPrefix, name)
+	default:
+		return fmt.Sprint(englishHelloPrefix, name)
+	}
 }
