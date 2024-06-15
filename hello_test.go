@@ -5,10 +5,17 @@ import (
 )
 
 func TestHello(t *testing.T) {
-	got := Hello("Chris")
-	want := "Hello, Chris"
+	t.Run("saying hello to people", func(t *testing.T) {
+		if got, want := Hello("Chirs"), "Hello, Chirs"; got != want {
+			t.Errorf("want %q but got %q", want, got)
+		}
+	})
+	t.Run("say 'Hello, World' when an empty string is supplied", func(t *testing.T) {
+		got := Hello(" ")
+		want := "Hello, World"
 
-	if got != want {
-		t.Errorf("got %q want %q", got, want)
-	}
+		if got != want {
+			t.Errorf("got %q instead of %q when empty string is supplied", got, want)
+		}
+	})
 }
