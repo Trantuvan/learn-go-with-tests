@@ -35,7 +35,7 @@ func checkArea(t testing.TB, shape Shape, want float64) {
 	got := shape.Area()
 
 	if got != want {
-		t.Errorf("got %g want %g", got, want)
+		t.Errorf("Shape: %#v got %g want %g", shape, got, want)
 	}
 }
 
