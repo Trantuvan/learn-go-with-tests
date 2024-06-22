@@ -2,15 +2,25 @@ package pointererror
 
 import "fmt"
 
-type Wallet struct {
-	ballance float64
+type BitCoin float64
+
+type Stringer interface {
+	String() string
 }
 
-func (w *Wallet) Deposit(amount float64) {
+func (b BitCoin) String() string {
+	return fmt.Sprintf("%.2f BTC", b)
+}
+
+type Wallet struct {
+	ballance BitCoin
+}
+
+func (w *Wallet) Deposit(amount BitCoin) {
 	fmt.Printf("address of balance in Deposit is %p \n", &w.ballance)
 	w.ballance += amount
 }
 
-func (w Wallet) Ballance() float64 {
+func (w Wallet) Ballance() BitCoin {
 	return w.ballance
 }

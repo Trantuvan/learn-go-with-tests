@@ -12,10 +12,10 @@ func TestWallet(t *testing.T) {
 	//? ballance is unexported field why is it work here?
 	//? because it is the same package ?
 	// got := wallet.ballance
-	want := 10.0
+	want := BitCoin(10)
 	fmt.Printf("address of balance in test is %p \n", &wallet.ballance)
 
 	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
+		t.Errorf("got %s want %s", got, want)
 	}
 }
