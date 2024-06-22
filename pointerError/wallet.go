@@ -1,6 +1,7 @@
 package pointererror
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -29,7 +30,7 @@ func (w Wallet) Ballance() BitCoin {
 
 func (w *Wallet) Withdraw(amount BitCoin) error {
 	if w.ballance < amount {
-		return fmt.Errorf("the amount %s is greater than ballance %s", amount, w.ballance)
+		return errors.New("cannot withdraw, insufficient funds")
 	}
 	w.ballance -= amount
 	return nil
