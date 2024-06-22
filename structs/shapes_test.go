@@ -5,43 +5,45 @@ import "testing"
 func TestPerimeter(t *testing.T) {
 	t.Run("rectangles", func(t *testing.T) {
 		rectangle := Rectangle{10, 10}
-		got := rectangle.Perimeter()
 		want := 40.0
-
-		if got != want {
-			t.Errorf("got %.2f want %.2f", got, want)
-		}
+		checkPerimeter(t, rectangle, want)
 	})
 
 	t.Run("circles", func(t *testing.T) {
 		circle := Circle{10}
-		got := circle.Perimeter()
 		want := 62.83185307179586
-
-		if got != want {
-			t.Errorf("got %g want %g", got, want)
-		}
+		checkPerimeter(t, circle, want)
 	})
 }
 
 func TestArea(t *testing.T) {
 	t.Run("rectangles", func(t *testing.T) {
 		rectangle := Rectangle{12, 6}
-		got := rectangle.Area()
 		want := 72.0
-
-		if got != want {
-			t.Errorf("got %.2f want %.2f", got, want)
-		}
+		checkArea(t, rectangle, want)
 	})
 
 	t.Run("circles", func(t *testing.T) {
 		circle := Circle{10}
-		got := circle.Area()
-		want := 314.1592653589793
-
-		if got != want {
-			t.Errorf("got %g want %g", got, want)
-		}
+		want := 314.159265358979
+		checkArea(t, circle, want)
 	})
+}
+
+func checkArea(t testing.TB, shape Shape, want float64) {
+	t.Helper()
+	got := shape.Area()
+
+	if got != want {
+		t.Errorf("got %g want %g", got, want)
+	}
+}
+
+func checkPerimeter(t testing.TB, shape Shape, want float64) {
+	t.Helper()
+	got := shape.Perimeter()
+
+	if got != want {
+		t.Errorf("got %g want %g", got, want)
+	}
 }
