@@ -17,17 +17,17 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{12, 6}
-		want := 72.0
-		checkArea(t, rectangle, want)
-	})
+	areaTests := []struct {
+		shape Shape
+		want  float64
+	}{
+		{Rectangle{12, 6}, 72.0},
+		{Circle{10}, 314.1592653589793},
+	}
 
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10}
-		want := 314.159265358979
-		checkArea(t, circle, want)
-	})
+	for _, tt := range areaTests {
+		checkArea(t, tt.shape, tt.want)
+	}
 }
 
 func checkArea(t testing.TB, shape Shape, want float64) {
