@@ -39,9 +39,17 @@ func TestWallet(t *testing.T) {
 	})
 }
 
+/*
+param: got error
+
+  - has default interface as a type to log error msg through `Error() string`.
+    The Error method just returns a string, thus couldn't cause a panic.
+  - However, when a happy case happens default value of error interface is nil,
+    this could cause a panic when call `Error()` method on nil
+*/
 func assertError(t testing.TB, got error, want string) {
 	t.Helper()
-
+	//* Note: prevent calling `Error()` on nil interface
 	if got == nil {
 		t.Fatal("didn't get an error but wanted one")
 	}
