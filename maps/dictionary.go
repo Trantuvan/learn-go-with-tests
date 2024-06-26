@@ -2,8 +2,8 @@ package maps
 
 type Dictionary map[string]string
 
-func Search(dict map[string]string, key string) string {
-	if val, ok := dict[key]; ok {
+func (d Dictionary) Search(key string) string {
+	if val, ok := d[key]; ok {
 		return val
 	}
 	return ""
