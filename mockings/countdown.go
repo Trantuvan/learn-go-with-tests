@@ -3,6 +3,7 @@ package mockings
 import (
 	"fmt"
 	"io"
+	"time"
 )
 
 const (
@@ -16,6 +17,7 @@ func Countdown(out io.Writer) {
 	}
 	for i := countdownStart; i >= 1; i-- {
 		fmt.Fprintln(out, i)
+		time.Sleep(time.Second)
 		if i == 1 {
 			fmt.Fprint(out, finalWord)
 		}
