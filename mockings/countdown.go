@@ -3,7 +3,6 @@ package mockings
 import (
 	"fmt"
 	"io"
-	"time"
 )
 
 const (
@@ -11,13 +10,17 @@ const (
 	countdownStart = 3
 )
 
-func Countdown(out io.Writer) {
+type Sleeper interface {
+	Sleep()
+}
+
+func Countdown(out io.Writer, sleeper Sleeper) {
 	if out == nil {
 		return
 	}
 	for i := countdownStart; i >= 1; i-- {
 		fmt.Fprintln(out, i)
-		time.Sleep(time.Second)
+		sleeper.Sleep()
 		if i == 1 {
 			fmt.Fprint(out, finalWord)
 		}
