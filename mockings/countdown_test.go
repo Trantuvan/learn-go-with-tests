@@ -72,21 +72,12 @@ Go!`
 	})
 }
 
-type ConfigurableSleeper struct {
-	duration time.Duration
-	sleep    func(time.Duration)
-}
-
 type spyTime struct {
 	durationSlept time.Duration
 }
 
 func (s *spyTime) Sleep(duration time.Duration) {
 	s.durationSlept = duration
-}
-
-func (c ConfigurableSleeper) Sleep() {
-	c.sleep(c.duration)
 }
 
 func TestConfigurableSleeper(t *testing.T) {

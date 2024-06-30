@@ -7,14 +7,15 @@ import (
 	"github.com/trantuvan/learn-go-with-tests/mockings"
 )
 
-type defaultSleeper struct{}
+// type defaultSleeper struct{}
 
-func (s defaultSleeper) Sleep() {
-	time.Sleep(time.Second)
-}
+// func (s defaultSleeper) Sleep() {
+// 	time.Sleep(time.Second)
+// }
 
 func main() {
 	// total := integers.Add(2, 2)
 	// fmt.Printf("total %d", total)
-	mockings.Countdown(os.Stdout, defaultSleeper{})
+	sleeper := mockings.ConfigurableSleeper{Duration: time.Second, Sleepfunc: time.Sleep}
+	mockings.Countdown(os.Stdout, sleeper)
 }
