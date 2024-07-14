@@ -6,6 +6,10 @@ func Walk(x interface{}, fn func(string)) {
 	val := reflect.ValueOf(x)
 
 	for i := 0; i < val.NumField(); i++ {
-		fn(val.Field(i).String())
+		if field := val.Field(i); field.Kind() != reflect.String {
+			continue
+		} else {
+			fn(field.String())
+		}
 	}
 }
