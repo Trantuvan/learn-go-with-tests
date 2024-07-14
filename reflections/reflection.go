@@ -2,14 +2,17 @@ package reflections
 
 import "reflect"
 
-func Walk(x interface{}, fn func(string)) {
+func Walk(x interface{}, fn func(input string)) {
 	val := reflect.ValueOf(x)
 
 	for i := 0; i < val.NumField(); i++ {
-		if field := val.Field(i); field.Kind() != reflect.String {
-			continue
-		} else {
+		field := val.Field(i)
+
+		switch field.Kind() {
+		case reflect.String:
 			fn(field.String())
+		case reflect.Struct:
+			Walk(field.Interface(), fn)
 		}
 	}
 }
