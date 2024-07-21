@@ -28,15 +28,22 @@ func TestServer(t *testing.T) {
 		//* notice: how to use interface
 		//* Server defines param as Store interface
 		//* invoke Server with a struct whose interface is Store
-		server := Server(&SpyStore{response: data})
+		store := &SpyStore{response: data}
+		server := Server(store)
 
 		request := httptest.NewRequest(http.MethodGet, "/", nil)
 		response := httptest.NewRecorder()
 
 		server(response, request)
 
+		//* stills make get request 1st
 		if response.Body.String() != data {
 			t.Errorf("got %q, want %q", response.Body.String(), data)
+		}
+
+		//* doesn't canceled request
+		if store.cancelled {
+			t.Errorf("it should not have cancelled the store")
 		}
 	})
 	t.Run("tells store to canel work if request is cancelled", func(t *testing.T) {
